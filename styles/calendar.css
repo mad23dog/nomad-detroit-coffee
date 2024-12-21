@@ -1,0 +1,107 @@
+.calendar-container {
+    background: transparent;
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: none;
+    max-width: 300px;
+    margin: 0;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.calendar-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    flex: 1;
+    text-align: center;
+    margin: 0 0.5rem;
+}
+
+.month-nav-btn {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 0.5rem;
+    transition: color 0.2s ease;
+}
+
+.month-nav-btn:hover {
+    color: #333;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.25rem;
+}
+
+.calendar-weekday {
+    text-align: center;
+    font-weight: 600;
+    color: #666;
+    padding: 0.25rem;
+    font-size: 0.75rem;
+}
+
+.calendar-day {
+    text-align: center;
+    padding: 0.5rem 0.25rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: #333;
+    transition: all 0.2s ease;
+}
+
+.calendar-day.saturday {
+    background-color: #e5e7eb;
+    color: #4b5563;
+}
+
+.calendar-day.at-market {
+    background-color: #22c55e;
+    color: white;
+}
+
+.calendar-day.empty {
+    background: none;
+}
+
+.calendar-legend {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #e5e5e5;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.25rem;
+    font-size: 0.75rem;
+}
+
+.legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    margin-right: 0.5rem;
+}
+
+.legend-color.at-market {
+    background-color: #22c55e;
+}
+
+.legend-color.saturday {
+    background-color: #e5e7eb;
+}
+
+.calendar-day.hover:opacity-75 {
+    transition: opacity 0.2s ease;
+}

@@ -1,0 +1,16 @@
+[build]
+  publish = "/"
+  command = ""
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*.js"
+    [headers.values]
+    Content-Type = "text/babel"
+
+[build.environment]
+  NODE_VERSION = "18"

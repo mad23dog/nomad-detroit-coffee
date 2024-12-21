@@ -1,0 +1,133 @@
+.header {
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0.5rem 0;
+}
+
+.nav-link {
+    color: #1d1d1f;
+    text-decoration: none;
+    padding: 0.5rem 0.75rem;
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+    color: #06c;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    padding-left: 1.5rem;
+    margin-top: -0.25rem;
+}
+
+.logo-image {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+}
+
+.company-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1d1d1f;
+    white-space: nowrap;
+}
+
+/* Mobile Menu Styles */
+.mobile-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 0;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+}
+
+.mobile-menu.open {
+    display: flex;
+    flex-direction: column;
+    transform: translateY(0);
+}
+
+.mobile-nav-link {
+    color: #1d1d1f;
+    text-decoration: none;
+    padding: 1rem 2rem;
+    transition: background-color 0.2s ease;
+    font-size: 1.1rem;
+}
+
+.mobile-nav-link:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Hamburger Icon */
+.hamburger-icon {
+    width: 24px;
+    height: 20px;
+    position: relative;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+.hamburger-icon span {
+    display: block;
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background: #1d1d1f;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.hamburger-icon span:nth-child(1) {
+    top: 0;
+}
+
+.hamburger-icon span:nth-child(2) {
+    top: 9px;
+}
+
+.hamburger-icon span:nth-child(3) {
+    bottom: 0;
+}
+
+.hamburger-icon.open span:nth-child(1) {
+    transform: rotate(45deg);
+    top: 9px;
+}
+
+.hamburger-icon.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-icon.open span:nth-child(3) {
+    transform: rotate(-45deg);
+    bottom: 9px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .company-title {
+        font-size: 1.25rem;
+    }
+
+    .logo-container {
+        padding-left: 1rem;
+    }
+
+    .logo-image {
+        width: 32px;
+        height: 32px;
+    }
+}

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nomad Detroit Coffee</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="styles/main.css" rel="stylesheet">
+    <link href="styles/header.css" rel="stylesheet">
+    <link href="styles/hero.css" rel="stylesheet">
+    <link href="styles/products.css" rel="stylesheet">
+    <link href="styles/footer.css" rel="stylesheet">
+    <link href="styles/animations.css" rel="stylesheet">
+    <link href="styles/calendar.css" rel="stylesheet">
+    <link href="styles/admin.css" rel="stylesheet">
+</head>
+<body>
+    <div id="root"></div>
+    
+    <!-- All JavaScript in one place -->
+    <script type="text/babel">
+        // Utility Functions
+        function scrollToElement(elementId) {
+            try {
+                const element = document.getElementById(elementId);
+                if (element) {
+                    const headerOffset = 64;
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                    });
+                }
+            } catch (error) {
+                reportError(error);
+            }
+        }
+
+        function useIntersectionObserver() {
+            try {
+                React.useEffect(() => {
+                    const observerCallback = (entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.style.visibility = 'visible';
+                            }
+                        });
+                    };
+
+                    const observerOptions = {
+                        root: null,
+                        rootMargin: '0px',
+                        threshold: 0.1
+                    };
+
+                    const observer = new IntersectionObserver(observerCallback, observerOptions);
+                    const animatedElements = document.querySelectorAll(
+                        '.animate-fade-in, .animate-fade-in-up, .animate-scale-in, .animate-slide-in-left, .animate-slide-in-right'
+                    );
+
+                    animatedElements.forEach(element => {
+                        element.style.visibility = 'hidden';
+                        observer.observe(element);
+                    });
+
+                    return () => observer.disconnect();
+                }, []);
+            } catch (error) {
+                reportError(error);
+            }
+        }
+
+        // Components
+        function Header() {
+            try {
+                const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+                
+                const handleNavClick = (e, sectionId) => {
+                    e.preventDefault();
+                    scrollToElement(sectionId);
+                    setIsMenuOpen(false);
+                };
+
+                const toggleMenu = () => {
+                    setIsMenuOpen(!isMenuOpen);
+                };
+
+                React.useEffect(() => {
+                    const handleResize = () => {
+                        if (window.innerWidth > 768 && isMenuOpen) {
+                            setIsMenuOpen(false);
+                        }
+                    };
+
+                    window.addEventListener('resize', handleResize);
+                    return () => window.removeEventListener('resize', handleResize);
+                }, [isMenuOpen]);
+
+                const navLinks = [
+                    { href: '#products', text: 'Products', id: 'products' },
+                    { href: '#about', text: 'About', id: 'about' },
+                    { href: '#locations', text: 'Locations', id: 'locations' },
+                    { href: '#contact', text: 'Contact', id: 'contact' }
+                ];
+
+                return (
+                    <header className="header" data-name="header">
+                        <div className="container px-0">
+                            <nav className="flex items-center justify-between h-14">
+                                <div className="flex items-center" data-name="left-section">
+                                    <div className="logo-container" data-name="logo-container">
+                                        <a href="/" 
+                                           onClick={(e) => handleNavClick(e, 'hero')}
+                                           className="flex items-center" 
+                                           data-name="logo-link">
+                                            <img src="https://app.trickle.so/storage/public/images/usr_0a2701f050000001/dfb1f7db-483b-4252-99c3-e8c34fb8f240.png" 
+                                                 alt="Nomad Detroit Coffee Logo" 
+                                                 className="logo-image"
+                                                 data-name="logo-image" />
+                                        </a>
+                                    </div>
+                                    <div className="company-title ml-8" data-name="company-title">
+                                        Nomad Detroit Coffee
+                                    </div>
+                                </div>
+                                
+                                {/* Desktop Navigation */}
+                                <div className="hidden md:flex space-x-3" data-name="desktop-nav">
+                                    {navLinks.map(link => (
+                                        <a key={link.id}
+                                           href={link.href}
+                                           onClick={(e) => handleNavClick(e, link.id)}
+                                           className="nav-link"
+                                           data-name={`${link.id}-link`}>
+                                            {link.text}
+                                        </a>
+                                    ))}
+                                </div>
+
+                                {/* Mobile Menu Button */}
+                                <button 
+                                    className="md:hidden p-2 focus:outline-none"
+                                    onClick={toggleMenu}
+                                    aria-label="Toggle menu"
+                                    data-name="mobile-menu-button"
+                                >
+                                    <div className={`hamburger-icon ${isMenuOpen ? 'open' : ''}`}>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </button>
+                            </nav>
+
+                            {/* Mobile Navigation */}
+                            <div className={`mobile-menu ${isMenuOpen ? 'open' : ''}`} data-name="mobile-menu">
+                                {navLinks.map(link => (
+                                    <a key={link.id}
+                                       href={link.href}
+                                       onClick={(e) => handleNavClick(e, link.id)}
+                                       className="mobile-nav-link"
+                                       data-name={`mobile-${link.id}-link`}>
+                                        {link.text}
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                    </header>
+                );
+            } catch (error) {
+                reportError(error);
+                return null;
+            }
+        }
+
+        function Hero() {
+            try {
+                useIntersectionObserver();
+                
+                const handleShopNowClick = (e) => {
+                    e.preventDefault();
+                    scrollToElement('products');
+                };
+                
+                return (
+                    <section className="hero" id="hero" data-name="hero">
+                        <div className="container">
+                            <div className="hero-content">
+                                <h1 className="hero-title animate-fade-in-up" data-name="hero-title">
+                                    Wander the World Through Coffee
+                                </h1>
+                                <p className="hero-subtitle animate-fade-in-up delay-200" data-name="hero-subtitle">
+                                    Global Flavors, Locally Roasted
+                                </p>
+                                <a href="#products" 
+                                   onClick={handleShopNowClick}
+                                   className="bg-black text-white px-8 py-4 rounded-full text-lg hover:bg-gray-800 transition-colors animate-fade-in-up delay-400"
+                                   data-name="shop-now-button">
+                                    Shop Now
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+                );
+            } catch (error) {
+                reportError(error);
+                return null;
+            }
+        }
+
+        // ... Other components will be added here ...
+
+        // Main App Component
+        function App() {
+            try {
+                return (
+                    <div data-name="app">
+                        <Header />
+                        <Hero />
+                        <Products />
+                        <About />
+                        <Locations />
+                        <Footer />
+                    </div>
+                );
+            } catch (error) {
+                reportError(error);
+                return null;
+            }
+        }
+
+        // Single root initialization
+        const rootElement = ReactDOM.createRoot(document.getElementById('root'));
+        rootElement.render(<App />);
+    </script>
+    <script type="text/babel" src="components/Header.js"></script>
+    <script type="text/babel" src="components/Hero.js"></script>
+    <script type="text/babel" src="components/Products.js"></script>
+    <script type="text/babel" src="components/Footer.js"></script>
+    <script type="text/babel" src="app.js"></script>
+    <script type="text/babel" src="utils/animations.js"></script>
+    <script type="text/babel" src="utils/scroll.js"></script>
+    <script type="text/babel" src="components/Calendar.js"></script>
+    <script type="text/babel" src="components/AdminLogin.js"></script>
+    <script type="text/babel" src="components/About.js"></script>
+    <script type="text/babel" src="components/Locations.js"></script>
+</body>
+</html>
