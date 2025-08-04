@@ -321,49 +321,42 @@
             container.innerHTML = '';
 
             paypal.Buttons({
-                createOrder: async function(data, actions) {
-                    // Create PayPal order first, get customer info after payment
-                    try {
+                createOrder: function(data, actions) {
+                    const items = cart.map(item => ({
+                        name: item.name,
+                        unit_amount: {
+                            currency_code: 'USD',
+                            value: item.price.toFixed(2)
+                        },
+                        quantity: item.quantity
+                    }));
 
-                        const items = cart.map(item => ({
-                            name: item.name,
-                            unit_amount: {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
                                 currency_code: 'USD',
-                                value: item.price.toFixed(2)
-                            },
-                            quantity: item.quantity
-                        }));
-
-                        return actions.order.create({
-                            purchase_units: [{
-                                amount: {
-                                    currency_code: 'USD',
-                                    value: cartTotal.toFixed(2),
-                                    breakdown: {
-                                        item_total: {
-                                            currency_code: 'USD',
-                                            value: cartTotal.toFixed(2)
-                                        }
+                                value: cartTotal.toFixed(2),
+                                breakdown: {
+                                    item_total: {
+                                        currency_code: 'USD',
+                                        value: cartTotal.toFixed(2)
                                     }
-                                },
-                                items: items
-                            }]
-                        });
-                    } catch (error) {
-                        console.error('Error creating order:', error);
-                        throw error;
-                    }
+                                }
+                            },
+                            items: items
+                        }]
+                    });
                 },
                 onApprove: async function(data, actions) {
                     try {
                         const details = await actions.order.capture();
                         
                         // Get customer info from PayPal response
-                        const customerName = `${details.payer.name.given_name} ${details.payer.name.surname}`;
+                        const customerName = `${details.payer.name.given_name} ${details.payer.name.surname || ''}`.trim();
                         const customerEmail = details.payer.email_address;
                         
-                        // Create order in our backend with PayPal customer info
-                        const createResponse = await fetch('/api/orders/create', {
+                        // Create and complete order in our backend
+                        const response = await fetch('/api/orders/process-payment', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -372,31 +365,17 @@
                                 items: cart,
                                 customerName,
                                 customerEmail,
-                                paypalOrderId: data.orderID
+                                paypalOrderId: data.orderID,
+                                paypalDetails: details
                             })
                         });
 
-                        if (!createResponse.ok) {
-                            throw new Error('Failed to create order record');
+                        if (!response.ok) {
+                            const errorData = await response.json();
+                            throw new Error(errorData.error || 'Failed to process order');
                         }
 
-                        const orderData = await createResponse.json();
-                        
-                        // Verify payment with our backend
-                        const verifyResponse = await fetch('/api/orders/verify-payment', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                orderId: orderData.orderId,
-                                paypalOrderId: data.orderID
-                            })
-                        });
-
-                        if (!verifyResponse.ok) {
-                            throw new Error('Payment verification failed');
-                        }
+                        const result = await response.json();
 
                         alert(`Thank you for your purchase, ${details.payer.name.given_name}! You'll receive an email confirmation shortly.`);
                         cart = [];
@@ -406,7 +385,7 @@
                         
                     } catch (error) {
                         console.error('Payment processing error:', error);
-                        alert('There was an error processing your payment. Please contact support.');
+                        alert('There was an error processing your payment. Please contact support. ' + error.message);
                     }
                 },
                 onError: function(err) {
