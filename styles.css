@@ -753,7 +753,7 @@ section {
         gap: 2rem;
         padding-top: 3rem;
         transition: left 0.3s ease;
-        z-index: 999;
+        z-index: 1001;
     }
     
     .nav-menu.active {
@@ -774,8 +774,12 @@ section {
     }
     
     .hero {
-        padding: 6rem 0 4rem 0;
-        min-height: auto;
+        padding: 0;
+        min-height: 100vh;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .hero-card {
@@ -783,6 +787,8 @@ section {
         margin: 0 1rem;
         gap: 2rem;
         max-width: none;
+        width: 100%;
+        max-width: 90vw;
     }
     
     .hero h1 {
@@ -896,14 +902,16 @@ section {
     
     .hero-text {
         order: 2;
+        text-align: center;
     }
     
     .hero-image {
         order: 1;
+        margin-bottom: 1rem;
     }
     
     .hero-logo {
-        max-height: 250px;
+        max-height: 200px;
     }
     
     .floating-element {
