@@ -3,11 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nomad Detroit Coffee</title>
-    <link rel="icon" type="image/png" href="Images/Logos/NOMAD Mountains Color 72ppi.png">
+    
+    <!-- SEO Meta Tags -->
+    <title>Nomad Detroit Coffee - Premium Single-Origin Coffee | Royal Oak Farmers Market</title>
+    <meta name="description" content="Premium single-origin coffee roasted in small batches. Ethiopian, Guatemalan, Nicaraguan, and specialty blends. Visit us at Royal Oak Farmers Market every Saturday 7AM-1PM.">
+    <meta name="keywords" content="coffee, single-origin coffee, specialty coffee, Detroit coffee, Royal Oak, farmers market, Ethiopian coffee, Guatemalan coffee, small batch roasted">
+    <meta name="author" content="Nomad Detroit Coffee">
+    <link rel="canonical" href="https://nomad-detroit-coffee.vercel.app/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nomad-detroit-coffee.vercel.app/">
+    <meta property="og:title" content="Nomad Detroit Coffee - Premium Single-Origin Coffee">
+    <meta property="og:description" content="Wander the world through coffee. Premium single-origin beans roasted in small batches. Find us at Royal Oak Farmers Market every Saturday.">
+    <meta property="og:image" content="https://nomad-detroit-coffee.vercel.app/Images/Logos/Mountain Logo Stars.png">
+    <meta property="og:site_name" content="Nomad Detroit Coffee">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://nomad-detroit-coffee.vercel.app/">
+    <meta property="twitter:title" content="Nomad Detroit Coffee - Premium Single-Origin Coffee">
+    <meta property="twitter:description" content="Wander the world through coffee. Premium single-origin beans roasted in small batches.">
+    <meta property="twitter:image" content="https://nomad-detroit-coffee.vercel.app/Images/Logos/Mountain Logo Stars.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="Images/Logos/NOMAD Mountains Color 72ppi.png">
+    <link rel="apple-touch-icon" href="Images/Logos/NOMAD Mountains Color 72ppi.png">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://www.paypal.com">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- PayPal SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id=AVrx79RIjIfmKrGfdZEZ88yECTpW_2r2NxCeiUvv62PC_5foBnUX8B8mf9gfg57rgahUcUC5s420MhFk&currency=USD"></script>
+    
+    <!-- Local Business Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Organization",
+                "@id": "https://nomad-detroit-coffee.vercel.app/#organization",
+                "name": "Nomad Detroit Coffee",
+                "url": "https://nomad-detroit-coffee.vercel.app/",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://nomad-detroit-coffee.vercel.app/Images/Logos/NOMAD Full Logo Color 72ppi.png"
+                },
+                "contactPoint": {
+                    "@type": "ContactPoint",
+                    "telephone": "+1-586-873-7910",
+                    "contactType": "customer service",
+                    "email": "hello@nomaddetroitcoffee.com"
+                },
+                "sameAs": []
+            },
+            {
+                "@type": "LocalBusiness",
+                "@id": "https://nomad-detroit-coffee.vercel.app/#localbusiness",
+                "name": "Nomad Detroit Coffee",
+                "description": "Premium single-origin coffee roasted in small batches. Specializing in Ethiopian, Guatemalan, and Nicaraguan coffee beans.",
+                "url": "https://nomad-detroit-coffee.vercel.app/",
+                "telephone": "+1-586-873-7910",
+                "email": "hello@nomaddetroitcoffee.com",
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "316 E 11 Mile Rd",
+                    "addressLocality": "Royal Oak",
+                    "addressRegion": "MI",
+                    "postalCode": "48067",
+                    "addressCountry": "US"
+                },
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 42.4894442,
+                    "longitude": -83.1456284
+                },
+                "openingHoursSpecification": {
+                    "@type": "OpeningHoursSpecification",
+                    "dayOfWeek": "Saturday",
+                    "opens": "07:00",
+                    "closes": "13:00"
+                },
+                "priceRange": "$22",
+                "servesCuisine": "Coffee",
+                "paymentAccepted": ["Cash", "Credit Card", "PayPal"],
+                "currenciesAccepted": "USD"
+            }
+        ]
+    }
+    </script>
 </head>
 <body>
     <div class="background-container">
@@ -67,7 +159,7 @@
                         <button class="cta-button" onclick="document.getElementById('coffee').scrollIntoView({behavior: 'smooth'})">Explore Our Coffees</button>
                     </div>
                     <div class="hero-image">
-                        <img src="Images/Logos/Mountain Logo Stars.png" alt="Nomad Detroit Coffee" class="hero-logo">
+                        <img src="Images/Logos/Mountain Logo Stars.png" alt="Nomad Detroit Coffee Logo - Mountain Design with Stars" class="hero-logo">
                     </div>
                 </div>
             </div>
@@ -75,10 +167,11 @@
 
         <section id="about" class="about">
             <div class="container">
-                <div class="glass-card">
+                <article class="glass-card">
                     <h2>Our Story</h2>
-                    <p>We founded Nomad Detroit Coffee in 2018 rooted in our shared love and curiosity of coffee and the journey it takes from earth to cup. Blending together craft and data we artistically roast in small batches ensuring a perfect brewed cup aimed to transport you to the corner of the world from which it originates.</p>
-                </div>
+                    <p>We founded <strong>Nomad Detroit Coffee</strong> in 2018 rooted in our shared love and curiosity of coffee and the journey it takes from earth to cup. Blending together craft and data we artistically roast in <em>small batches</em> ensuring a perfect brewed cup aimed to transport you to the corner of the world from which it originates.</p>
+                    <p>Specializing in <strong>single-origin coffee</strong> from <em>Ethiopia</em>, <em>Guatemala</em>, and <em>Nicaragua</em>, we bring you the finest beans roasted to perfection. Visit us at the <strong>Royal Oak Farmers Market</strong> every Saturday morning.</p>
+                </article>
             </div>
         </section>
 
@@ -86,41 +179,56 @@
             <div class="container">
                 <h2>Our Coffee</h2>
                 <div class="coffee-grid">
-                    <div class="glass-card coffee-card">
-                        <img src="Images/Bag Info Labels/Ethiopia.png" alt="Ethiopia Coffee" class="coffee-image">
-                        <h3>Ethiopia</h3>
-                        <p>Single-origin Ethiopian coffee with vibrant blueberry sweetness and bright lemon citrus notes, reminiscent of a fresh-baked pound cake. Natural processed beans from the Wush Wush region.</p>
-                        <div class="price">$22</div>
+                    <article class="glass-card coffee-card" itemscope itemtype="https://schema.org/Product">
+                        <img src="Images/Bag Info Labels/Ethiopia.png" alt="Ethiopia Single-Origin Coffee Bag - Premium Ethiopian Coffee from Wush Wush Region" class="coffee-image" itemprop="image">
+                        <h3 itemprop="name">Ethiopia Single-Origin Coffee</h3>
+                        <p itemprop="description">Single-origin Ethiopian coffee with vibrant blueberry sweetness and bright lemon citrus notes, reminiscent of a fresh-baked pound cake. Natural processed beans from the Wush Wush region.</p>
+                        <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                            <span itemprop="priceCurrency" content="USD">$</span><span itemprop="price" content="22">22</span>
+                            <meta itemprop="availability" content="https://schema.org/InStock">
+                        </div>
                         <button class="add-to-cart-btn" data-price="22" data-item="Ethiopia">Add to Cart</button>
-                    </div>
-                    <div class="glass-card coffee-card">
-                        <img src="Images/Bag Info Labels/Guatemala.png" alt="Guatemala Coffee" class="coffee-image">
-                        <h3>Guatemala</h3>
-                        <p>Rich Guatemalan single-origin from Baja Verapaz with indulgent macadamia nut richness and sweet cookie-like finish. Washed process brings out clean, balanced flavors.</p>
-                        <div class="price">$22</div>
+                    </article>
+                    <article class="glass-card coffee-card" itemscope itemtype="https://schema.org/Product">
+                        <img src="Images/Bag Info Labels/Guatemala.png" alt="Guatemala Single-Origin Coffee Bag - Premium Guatemalan Coffee from Baja Verapaz" class="coffee-image" itemprop="image">
+                        <h3 itemprop="name">Guatemala Single-Origin Coffee</h3>
+                        <p itemprop="description">Rich Guatemalan single-origin from Baja Verapaz with indulgent macadamia nut richness and sweet cookie-like finish. Washed process brings out clean, balanced flavors.</p>
+                        <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                            <span itemprop="priceCurrency" content="USD">$</span><span itemprop="price" content="22">22</span>
+                            <meta itemprop="availability" content="https://schema.org/InStock">
+                        </div>
                         <button class="add-to-cart-btn" data-price="22" data-item="Guatemala">Add to Cart</button>
-                    </div>
-                    <div class="glass-card coffee-card">
-                        <img src="Images/Bag Info Labels/Nicaragua.png" alt="Nicaragua Coffee" class="coffee-image">
-                        <h3>Nicaragua</h3>
-                        <p>Nicaraguan single-origin from Matagalpa featuring warm brown sugar sweetness, bright cherry acidity, and satisfying nutty undertones. Expertly washed for clarity and balance.</p>
-                        <div class="price">$22</div>
+                    </article>
+                    <article class="glass-card coffee-card" itemscope itemtype="https://schema.org/Product">
+                        <img src="Images/Bag Info Labels/Nicaragua.png" alt="Nicaragua Single-Origin Coffee Bag - Premium Nicaraguan Coffee from Matagalpa" class="coffee-image" itemprop="image">
+                        <h3 itemprop="name">Nicaragua Single-Origin Coffee</h3>
+                        <p itemprop="description">Nicaraguan single-origin from Matagalpa featuring warm brown sugar sweetness, bright cherry acidity, and satisfying nutty undertones. Expertly washed for clarity and balance.</p>
+                        <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                            <span itemprop="priceCurrency" content="USD">$</span><span itemprop="price" content="22">22</span>
+                            <meta itemprop="availability" content="https://schema.org/InStock">
+                        </div>
                         <button class="add-to-cart-btn" data-price="22" data-item="Nicaragua">Add to Cart</button>
-                    </div>
-                    <div class="glass-card coffee-card">
-                        <img src="Images/Bag Info Labels/Vagabond.png" alt="Vagabond Coffee" class="coffee-image">
-                        <h3>Vagabond</h3>
-                        <p>Premium blend combining Ethiopian and Nicaraguan beans. Complex flavor profile with juicy blueberry notes, zesty citrus brightness, and smooth almond finish. Washed and natural processing.</p>
-                        <div class="price">$22</div>
+                    </article>
+                    <article class="glass-card coffee-card" itemscope itemtype="https://schema.org/Product">
+                        <img src="Images/Bag Info Labels/Vagabond.png" alt="Vagabond Coffee Blend - Premium Ethiopian and Nicaraguan Coffee Blend" class="coffee-image" itemprop="image">
+                        <h3 itemprop="name">Vagabond Coffee Blend</h3>
+                        <p itemprop="description">Premium blend combining Ethiopian and Nicaraguan beans. Complex flavor profile with juicy blueberry notes, zesty citrus brightness, and smooth almond finish. Washed and natural processing.</p>
+                        <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                            <span itemprop="priceCurrency" content="USD">$</span><span itemprop="price" content="22">22</span>
+                            <meta itemprop="availability" content="https://schema.org/InStock">
+                        </div>
                         <button class="add-to-cart-btn" data-price="22" data-item="Vagabond">Add to Cart</button>
-                    </div>
-                    <div class="glass-card coffee-card">
-                        <img src="Images/Bag Info Labels/Decaf.png" alt="Decaf Coffee" class="coffee-image">
-                        <h3>Decaf</h3>
-                        <p>Colombian decaf from Valle de Cauca with warming clove spice, sweet cherry notes, and rich honeycomb sweetness. All the exceptional flavor without the caffeine.</p>
-                        <div class="price">$22</div>
+                    </article>
+                    <article class="glass-card coffee-card" itemscope itemtype="https://schema.org/Product">
+                        <img src="Images/Bag Info Labels/Decaf.png" alt="Decaf Colombian Coffee - Premium Decaffeinated Coffee from Valle de Cauca" class="coffee-image" itemprop="image">
+                        <h3 itemprop="name">Decaf Colombian Coffee</h3>
+                        <p itemprop="description">Colombian decaf from Valle de Cauca with warming clove spice, sweet cherry notes, and rich honeycomb sweetness. All the exceptional flavor without the caffeine.</p>
+                        <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                            <span itemprop="priceCurrency" content="USD">$</span><span itemprop="price" content="22">22</span>
+                            <meta itemprop="availability" content="https://schema.org/InStock">
+                        </div>
                         <button class="add-to-cart-btn" data-price="22" data-item="Decaf">Add to Cart</button>
-                    </div>
+                    </article>
                 </div>
             </div>
         </section>

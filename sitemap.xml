@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    
+    <!-- Homepage -->
+    <url>
+        <loc>https://nomad-detroit-coffee.vercel.app/</loc>
+        <lastmod>2025-01-04</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://nomad-detroit-coffee.vercel.app/Images/Logos/Mountain Logo Stars.png</image:loc>
+            <image:title>Nomad Detroit Coffee Logo</image:title>
+            <image:caption>Nomad Detroit Coffee - Premium single-origin coffee roasted in small batches</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://nomad-detroit-coffee.vercel.app/Images/Logos/NOMAD Full Logo Color 72ppi.png</image:loc>
+            <image:title>Nomad Detroit Coffee Full Logo</image:title>
+            <image:caption>Nomad Detroit Coffee full brand logo</image:caption>
+        </image:image>
+    </url>
+    
+    <!-- Coffee Products -->
+    <url>
+        <loc>https://nomad-detroit-coffee.vercel.app/#coffee</loc>
+        <lastmod>2025-01-04</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <image:image>
+            <image:loc>https://nomad-detroit-coffee.vercel.app/Images/Bag Info Labels/Ethiopia.png</image:loc>
+            <image:title>Ethiopia Single-Origin Coffee</image:title>
+            <image:caption>Premium Ethiopian coffee with vibrant blueberry sweetness and bright lemon citrus notes</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://nomad-detroit-coffee.vercel.app/Images/Bag Info Labels/Guatemala.png</image:loc>
+            <image:title>Guatemala Single-Origin Coffee</image:title>
+            <image:caption>Rich Guatemalan coffee with macadamia nut richness and sweet cookie-like finish</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://nomad-detroit-coffee.vercel.app/Images/Bag Info Labels/Nicaragua.png</image:loc>
+            <image:title>Nicaragua Single-Origin Coffee</image:title>
+            <image:caption>Nicaraguan coffee with brown sugar sweetness and bright cherry acidity</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://nomad-detroit-coffee.vercel.app/Images/Bag Info Labels/Vagabond.png</image:loc>
+            <image:title>Vagabond Coffee Blend</image:title>
+            <image:caption>Premium blend combining Ethiopian and Nicaraguan beans with complex flavor profile</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://nomad-detroit-coffee.vercel.app/Images/Bag Info Labels/Decaf.png</image:loc>
+            <image:title>Decaf Colombian Coffee</image:title>
+            <image:caption>Colombian decaf with warming clove spice and sweet cherry notes</image:caption>
+        </image:image>
+    </url>
+    
+    <!-- About Section -->
+    <url>
+        <loc>https://nomad-detroit-coffee.vercel.app/#about</loc>
+        <lastmod>2025-01-04</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- Contact/Location -->
+    <url>
+        <loc>https://nomad-detroit-coffee.vercel.app/#contact</loc>
+        <lastmod>2025-01-04</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+</urlset>

@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Allow all search engines to crawl the site
+Disallow: /api/
+Disallow: /*.json$
+
+# Sitemap location
+Sitemap: https://nomad-detroit-coffee.vercel.app/sitemap.xml
+
+# Crawl delay (optional - be respectful to servers)
+Crawl-delay: 1
