@@ -18,7 +18,7 @@ module.exports = async function handler(req, res) {
     const client = await pool.connect();
 
     try {
-        const { items, customerEmail, customerName } = req.body;
+        const { items, customerEmail, customerName, paypalOrderId } = req.body;
         
         if (!items || items.length === 0) {
             return res.status(400).json({ error: 'No items in order' });
@@ -61,8 +61,8 @@ module.exports = async function handler(req, res) {
         
         // Create order in database
         await client.query(
-            'INSERT INTO orders (order_id, customer_email, customer_name, total_amount, status) VALUES ($1, $2, $3, $4, $5)',
-            [orderId, customerEmail, customerName, total, 'pending']
+            'INSERT INTO orders (order_id, customer_email, customer_name, total_amount, status, paypal_order_id) VALUES ($1, $2, $3, $4, $5, $6)',
+            [orderId, customerEmail, customerName, total, 'pending', paypalOrderId]
         );
         
         // Insert order items

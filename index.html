@@ -52,26 +52,6 @@
                 <div class="cart-total">
                     <strong>Total: $<span id="cart-total">0.00</span></strong>
                 </div>
-                
-                <!-- Customer Information Form -->
-                <div id="customer-form" class="customer-form" style="display: none;">
-                    <h4>Customer Information</h4>
-                    <div class="form-group">
-                        <input type="text" id="customer-name" placeholder="Full Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="customer-email" placeholder="Email Address" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="customer-address" placeholder="Shipping Address (Optional)" rows="3"></textarea>
-                    </div>
-                    <button id="proceed-to-payment" class="proceed-btn">Proceed to Payment</button>
-                    <button id="cancel-checkout" class="cancel-btn">Cancel</button>
-                </div>
-                
-                <!-- Checkout Button -->
-                <button id="checkout-btn" class="checkout-button" style="display: none;">Checkout</button>
-                
                 <div id="paypal-checkout-container"></div>
             </div>
         </div>
@@ -263,47 +243,6 @@
                 });
             });
 
-            // Checkout button handler
-            const checkoutBtn = document.getElementById('checkout-btn');
-            const customerForm = document.getElementById('customer-form');
-            const proceedBtn = document.getElementById('proceed-to-payment');
-            const cancelBtn = document.getElementById('cancel-checkout');
-
-            checkoutBtn.addEventListener('click', function() {
-                customerForm.style.display = 'block';
-                checkoutBtn.style.display = 'none';
-            });
-
-            cancelBtn.addEventListener('click', function() {
-                customerForm.style.display = 'none';
-                checkoutBtn.style.display = 'block';
-                // Clear form
-                document.getElementById('customer-name').value = '';
-                document.getElementById('customer-email').value = '';
-                document.getElementById('customer-address').value = '';
-            });
-
-            proceedBtn.addEventListener('click', function() {
-                const name = document.getElementById('customer-name').value.trim();
-                const email = document.getElementById('customer-email').value.trim();
-                
-                if (!name || !email) {
-                    alert('Please fill in your name and email address.');
-                    return;
-                }
-                
-                // Basic email validation
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(email)) {
-                    alert('Please enter a valid email address.');
-                    return;
-                }
-                
-                // Hide form and show PayPal buttons
-                customerForm.style.display = 'none';
-                initPayPalCheckout();
-            });
-
             // Initialize PayPal checkout button
             initPayPalCheckout();
         });
@@ -344,18 +283,12 @@
         function updateCartDisplay() {
             const cartItems = document.getElementById('cart-items');
             const cartCount = document.getElementById('cart-count');
-            const checkoutBtn = document.getElementById('checkout-btn');
-            const customerForm = document.getElementById('customer-form');
-            const paypalContainer = document.getElementById('paypal-checkout-container');
             
             const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
             cartCount.textContent = totalItems;
 
             if (cart.length === 0) {
                 cartItems.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
-                checkoutBtn.style.display = 'none';
-                customerForm.style.display = 'none';
-                paypalContainer.innerHTML = '';
             } else {
                 cartItems.innerHTML = cart.map((item, index) => `
                     <div class="cart-item">
@@ -371,9 +304,10 @@
                         </div>
                     </div>
                 `).join('');
-                
-                checkoutBtn.style.display = 'block';
             }
+
+            // Re-initialize PayPal button when cart changes
+            initPayPalCheckout();
         }
 
         async function initPayPalCheckout() {
@@ -388,33 +322,8 @@
 
             paypal.Buttons({
                 createOrder: async function(data, actions) {
-                    // Get customer info from form
-                    const customerName = document.getElementById('customer-name').value;
-                    const customerEmail = document.getElementById('customer-email').value;
-                    
-                    if (!customerName || !customerEmail) {
-                        throw new Error('Customer information is required');
-                    }
-
+                    // Create PayPal order first, get customer info after payment
                     try {
-                        const response = await fetch('/api/orders/create', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                items: cart,
-                                customerName,
-                                customerEmail
-                            })
-                        });
-
-                        if (!response.ok) {
-                            throw new Error('Failed to create order');
-                        }
-
-                        const orderData = await response.json();
-                        window.currentOrderId = orderData.orderId;
 
                         const items = cart.map(item => ({
                             name: item.name,
@@ -449,19 +358,43 @@
                     try {
                         const details = await actions.order.capture();
                         
-                        // Verify payment with our backend
-                        const response = await fetch('/api/orders/verify-payment', {
+                        // Get customer info from PayPal response
+                        const customerName = `${details.payer.name.given_name} ${details.payer.name.surname}`;
+                        const customerEmail = details.payer.email_address;
+                        
+                        // Create order in our backend with PayPal customer info
+                        const createResponse = await fetch('/api/orders/create', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
                             },
                             body: JSON.stringify({
-                                orderId: window.currentOrderId,
+                                items: cart,
+                                customerName,
+                                customerEmail,
                                 paypalOrderId: data.orderID
                             })
                         });
 
-                        if (!response.ok) {
+                        if (!createResponse.ok) {
+                            throw new Error('Failed to create order record');
+                        }
+
+                        const orderData = await createResponse.json();
+                        
+                        // Verify payment with our backend
+                        const verifyResponse = await fetch('/api/orders/verify-payment', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                orderId: orderData.orderId,
+                                paypalOrderId: data.orderID
+                            })
+                        });
+
+                        if (!verifyResponse.ok) {
                             throw new Error('Payment verification failed');
                         }
 
