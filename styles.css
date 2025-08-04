@@ -784,11 +784,14 @@ section {
     
     .hero-card {
         padding: 2rem 1rem;
-        margin: 0 1rem;
+        margin: 0 auto;
         gap: 2rem;
-        max-width: none;
-        width: 100%;
         max-width: 90vw;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
     
     .hero h1 {
@@ -903,11 +906,18 @@ section {
     .hero-text {
         order: 2;
         text-align: center;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     
     .hero-image {
         order: 1;
         margin-bottom: 1rem;
+        display: flex;
+        justify-content: center;
+        width: 100%;
     }
     
     .hero-logo {
@@ -947,7 +957,9 @@ section {
     }
     
     .cta-button {
-        width: 100%;
+        width: auto;
+        max-width: 90%;
+        margin: 0 auto;
     }
     
     .nav-menu {
