@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nomad Detroit Coffee</title>
+    <link rel="icon" type="image/png" href="Images/Logos/NOMAD Mountains Color 72ppi.png">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://www.paypal.com/sdk/js?client-id=AVrx79RIjIfmKrGfdZEZ88yECTpW_2r2NxCeiUvv62PC_5foBnUX8B8mf9gfg57rgahUcUC5s420MhFk&currency=USD"></script>
+</head>
+<body>
+    <div class="background-container">
+        <div class="floating-element element-1"></div>
+        <div class="floating-element element-2"></div>
+        <div class="floating-element element-3"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="#" onclick="smoothScrollTo('home'); return false;">
+                    <img src="Images/Logos/NOMAD Mountains Color 72ppi.png" alt="Nomad Detroit Coffee" class="logo-img">
+                </a>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#" onclick="smoothScrollTo('home'); closeMenu(); return false;">Home</a></li>
+                <li><a href="#" onclick="smoothScrollTo('about'); closeMenu(); return false;">About</a></li>
+                <li><a href="#" onclick="smoothScrollTo('coffee'); closeMenu(); return false;">Coffee</a></li>
+                <li><a href="#" onclick="smoothScrollTo('contact'); closeMenu(); return false;">Contact</a></li>
+                <li><a href="#" id="cart-toggle">Cart <span id="cart-count">0</span></a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Shopping Cart Sidebar -->
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-content glass-card">
+            <div class="cart-header">
+                <h3>Your Cart</h3>
+                <button id="close-cart">&times;</button>
+            </div>
+            <div id="cart-items" class="cart-items">
+                <p class="empty-cart">Your cart is empty</p>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <strong>Total: $<span id="cart-total">0.00</span></strong>
+                </div>
+                <div id="paypal-checkout-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <div class="glass-card hero-card">
+                    <div class="hero-text">
+                        <h1>Nomad Detroit Coffee</h1>
+                        <p>Wander the World Through Coffee</p>
+                        <button class="cta-button" onclick="document.getElementById('coffee').scrollIntoView({behavior: 'smooth'})">Explore Our Coffees</button>
+                    </div>
+                    <div class="hero-image">
+                        <img src="Images/Logos/Mountain Logo Stars.png" alt="Nomad Detroit Coffee" class="hero-logo">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <div class="glass-card">
+                    <h2>Our Story</h2>
+                    <p>We founded Nomad Detroit Coffee in 2018 rooted in our shared love and curiosity of coffee and the journey it takes from earth to cup. Blending together craft and data we artistically roast in small batches ensuring a perfect brewed cup aimed to transport you to the corner of the world from which it originates.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="coffee" class="coffee-section">
+            <div class="container">
+                <h2>Our Coffee</h2>
+                <div class="coffee-grid">
+                    <div class="glass-card coffee-card">
+                        <img src="Images/Bag Info Labels/Ethiopia.png" alt="Ethiopia Coffee" class="coffee-image">
+                        <h3>Ethiopia</h3>
+                        <p>Single-origin Ethiopian coffee with vibrant blueberry sweetness and bright lemon citrus notes, reminiscent of a fresh-baked pound cake. Natural processed beans from the Wush Wush region.</p>
+                        <div class="price">$22</div>
+                        <button class="add-to-cart-btn" data-price="22" data-item="Ethiopia">Add to Cart</button>
+                    </div>
+                    <div class="glass-card coffee-card">
+                        <img src="Images/Bag Info Labels/Guatemala.png" alt="Guatemala Coffee" class="coffee-image">
+                        <h3>Guatemala</h3>
+                        <p>Rich Guatemalan single-origin from Baja Verapaz with indulgent macadamia nut richness and sweet cookie-like finish. Washed process brings out clean, balanced flavors.</p>
+                        <div class="price">$22</div>
+                        <button class="add-to-cart-btn" data-price="22" data-item="Guatemala">Add to Cart</button>
+                    </div>
+                    <div class="glass-card coffee-card">
+                        <img src="Images/Bag Info Labels/Nicaragua.png" alt="Nicaragua Coffee" class="coffee-image">
+                        <h3>Nicaragua</h3>
+                        <p>Nicaraguan single-origin from Matagalpa featuring warm brown sugar sweetness, bright cherry acidity, and satisfying nutty undertones. Expertly washed for clarity and balance.</p>
+                        <div class="price">$22</div>
+                        <button class="add-to-cart-btn" data-price="22" data-item="Nicaragua">Add to Cart</button>
+                    </div>
+                    <div class="glass-card coffee-card">
+                        <img src="Images/Bag Info Labels/Vagabond.png" alt="Vagabond Coffee" class="coffee-image">
+                        <h3>Vagabond</h3>
+                        <p>Premium blend combining Ethiopian and Nicaraguan beans. Complex flavor profile with juicy blueberry notes, zesty citrus brightness, and smooth almond finish. Washed and natural processing.</p>
+                        <div class="price">$22</div>
+                        <button class="add-to-cart-btn" data-price="22" data-item="Vagabond">Add to Cart</button>
+                    </div>
+                    <div class="glass-card coffee-card">
+                        <img src="Images/Bag Info Labels/Decaf.png" alt="Decaf Coffee" class="coffee-image">
+                        <h3>Decaf</h3>
+                        <p>Colombian decaf from Valle de Cauca with warming clove spice, sweet cherry notes, and rich honeycomb sweetness. All the exceptional flavor without the caffeine.</p>
+                        <div class="price">$22</div>
+                        <button class="add-to-cart-btn" data-price="22" data-item="Decaf">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <div class="glass-card">
+                    <h2>Visit Us</h2>
+                    <p>Royal Oak Farmers Market<br>316 E 11 Mile Rd, Royal Oak, MI 48067</p>
+                    <p>Saturdays: 7AM - 1PM</p>
+                    <div class="map-container">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2943.8537345156193!2d-83.1456284!3d42.4894442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8824c0c6b0f6c5c5%3A0x8b6c6c6c6c6c6c6c!2sRoyal%20Oak%20Farmers%20Market!5e0!3m2!1sen!2sus!4v1625000000000!5m2!1sen!2sus"
+                            width="100%" 
+                            height="250" 
+                            style="border:0; border-radius: 10px;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                    <div class="contact-info">
+                        <p>Email: hello@nomaddetroitcoffee.com</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="quote-section">
+            <div class="container">
+                <div class="glass-card quote-card">
+                    <blockquote class="featured-quote">
+                        "Coffee in its variety of shapes, sizes, density, aroma, and flavor is a perfect representation of the diversity of the world we call home. To that end, we hope and encourage you to enjoy this coffee in whichever way you choose, pour over, drip, french press, espresso... cream, sugar, or black. However you like it is exactly the way we like it."
+                    </blockquote>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Nomad Detroit Coffee. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let cart = [];
+        let cartTotal = 0;
+
+        function smoothScrollTo(elementId) {
+            document.getElementById(elementId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        function toggleMenu() {
+            const navMenu = document.getElementById('nav-menu');
+            const hamburger = document.getElementById('hamburger');
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const navMenu = document.getElementById('nav-menu');
+            const hamburger = document.getElementById('hamburger');
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const cartToggle = document.getElementById('cart-toggle');
+            const cartSidebar = document.getElementById('cart-sidebar');
+            const closeCart = document.getElementById('close-cart');
+            const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+
+            // Hamburger menu functionality
+            hamburger.addEventListener('click', toggleMenu);
+
+            // Close menu when clicking on nav links or outside
+            navMenu.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A' && e.target.id !== 'cart-toggle') {
+                    closeMenu();
+                }
+            });
+
+            // Cart toggle functionality
+            cartToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                cartSidebar.classList.add('active');
+                closeMenu(); // Close mobile menu when opening cart
+            });
+
+            closeCart.addEventListener('click', function() {
+                cartSidebar.classList.remove('active');
+            });
+
+            // Close cart when clicking outside
+            cartSidebar.addEventListener('click', function(e) {
+                if (e.target === cartSidebar) {
+                    cartSidebar.classList.remove('active');
+                }
+            });
+
+            // Add to cart functionality
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const price = parseFloat(this.getAttribute('data-price'));
+                    const item = this.getAttribute('data-item');
+                    
+                    addToCart(item, price);
+                    updateCartDisplay();
+                    
+                    // Show success feedback
+                    this.textContent = 'Added!';
+                    setTimeout(() => {
+                        this.textContent = 'Add to Cart';
+                    }, 1000);
+                });
+            });
+
+            // Initialize PayPal checkout button
+            initPayPalCheckout();
+        });
+
+        function addToCart(item, price) {
+            const existingItem = cart.find(cartItem => cartItem.name === item);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name: item, price: price, quantity: 1 });
+            }
+            
+            updateCartTotal();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartDisplay();
+            updateCartTotal();
+        }
+
+        function updateQuantity(index, newQuantity) {
+            if (newQuantity <= 0) {
+                removeFromCart(index);
+            } else {
+                cart[index].quantity = newQuantity;
+                updateCartDisplay();
+                updateCartTotal();
+            }
+        }
+
+        function updateCartTotal() {
+            cartTotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            document.getElementById('cart-total').textContent = cartTotal.toFixed(2);
+        }
+
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
+            } else {
+                cartItems.innerHTML = cart.map((item, index) => `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <p>$${item.price.toFixed(2)} each</p>
+                        </div>
+                        <div class="cart-item-controls">
+                            <button onclick="updateQuantity(${index}, ${item.quantity - 1})" class="qty-btn">-</button>
+                            <span class="quantity">${item.quantity}</span>
+                            <button onclick="updateQuantity(${index}, ${item.quantity + 1})" class="qty-btn">+</button>
+                            <button onclick="removeFromCart(${index})" class="remove-btn">×</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Re-initialize PayPal button when cart changes
+            initPayPalCheckout();
+        }
+
+        async function initPayPalCheckout() {
+            const container = document.getElementById('paypal-checkout-container');
+            
+            if (cart.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+
+            container.innerHTML = '';
+
+            paypal.Buttons({
+                createOrder: async function(data, actions) {
+                    // First create order on our backend
+                    const customerName = prompt('Please enter your full name:');
+                    const customerEmail = prompt('Please enter your email address:');
+                    
+                    if (!customerName || !customerEmail) {
+                        throw new Error('Customer information is required');
+                    }
+
+                    try {
+                        const response = await fetch('/api/orders/create', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                items: cart,
+                                customerName,
+                                customerEmail
+                            })
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Failed to create order');
+                        }
+
+                        const orderData = await response.json();
+                        window.currentOrderId = orderData.orderId;
+
+                        const items = cart.map(item => ({
+                            name: item.name,
+                            unit_amount: {
+                                currency_code: 'USD',
+                                value: item.price.toFixed(2)
+                            },
+                            quantity: item.quantity
+                        }));
+
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    currency_code: 'USD',
+                                    value: cartTotal.toFixed(2),
+                                    breakdown: {
+                                        item_total: {
+                                            currency_code: 'USD',
+                                            value: cartTotal.toFixed(2)
+                                        }
+                                    }
+                                },
+                                items: items
+                            }]
+                        });
+                    } catch (error) {
+                        console.error('Error creating order:', error);
+                        throw error;
+                    }
+                },
+                onApprove: async function(data, actions) {
+                    try {
+                        const details = await actions.order.capture();
+                        
+                        // Verify payment with our backend
+                        const response = await fetch('/api/orders/verify-payment', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                orderId: window.currentOrderId,
+                                paypalOrderId: data.orderID
+                            })
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Payment verification failed');
+                        }
+
+                        alert(`Thank you for your purchase, ${details.payer.name.given_name}! You'll receive an email confirmation shortly.`);
+                        cart = [];
+                        updateCartDisplay();
+                        updateCartTotal();
+                        document.getElementById('cart-sidebar').classList.remove('active');
+                        
+                    } catch (error) {
+                        console.error('Payment processing error:', error);
+                        alert('There was an error processing your payment. Please contact support.');
+                    }
+                },
+                onError: function(err) {
+                    console.error('PayPal error:', err);
+                    alert('Payment failed. Please try again.');
+                }
+            }).render(container);
+        }
+    </script>
+</body>
+</html>
