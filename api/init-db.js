@@ -1,7 +1,7 @@
 const { initializeDatabase } = require('../lib/db');
 
 module.exports = async function handler(req, res) {
-    if (req.method !== 'POST') {
+    if (req.method !== 'POST' && req.method !== 'GET') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
