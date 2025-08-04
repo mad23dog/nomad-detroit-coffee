@@ -52,6 +52,26 @@
                 <div class="cart-total">
                     <strong>Total: $<span id="cart-total">0.00</span></strong>
                 </div>
+                
+                <!-- Customer Information Form -->
+                <div id="customer-form" class="customer-form" style="display: none;">
+                    <h4>Customer Information</h4>
+                    <div class="form-group">
+                        <input type="text" id="customer-name" placeholder="Full Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="customer-email" placeholder="Email Address" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="customer-address" placeholder="Shipping Address (Optional)" rows="3"></textarea>
+                    </div>
+                    <button id="proceed-to-payment" class="proceed-btn">Proceed to Payment</button>
+                    <button id="cancel-checkout" class="cancel-btn">Cancel</button>
+                </div>
+                
+                <!-- Checkout Button -->
+                <button id="checkout-btn" class="checkout-button" style="display: none;">Checkout</button>
+                
                 <div id="paypal-checkout-container"></div>
             </div>
         </div>
@@ -243,6 +263,47 @@
                 });
             });
 
+            // Checkout button handler
+            const checkoutBtn = document.getElementById('checkout-btn');
+            const customerForm = document.getElementById('customer-form');
+            const proceedBtn = document.getElementById('proceed-to-payment');
+            const cancelBtn = document.getElementById('cancel-checkout');
+
+            checkoutBtn.addEventListener('click', function() {
+                customerForm.style.display = 'block';
+                checkoutBtn.style.display = 'none';
+            });
+
+            cancelBtn.addEventListener('click', function() {
+                customerForm.style.display = 'none';
+                checkoutBtn.style.display = 'block';
+                // Clear form
+                document.getElementById('customer-name').value = '';
+                document.getElementById('customer-email').value = '';
+                document.getElementById('customer-address').value = '';
+            });
+
+            proceedBtn.addEventListener('click', function() {
+                const name = document.getElementById('customer-name').value.trim();
+                const email = document.getElementById('customer-email').value.trim();
+                
+                if (!name || !email) {
+                    alert('Please fill in your name and email address.');
+                    return;
+                }
+                
+                // Basic email validation
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    alert('Please enter a valid email address.');
+                    return;
+                }
+                
+                // Hide form and show PayPal buttons
+                customerForm.style.display = 'none';
+                initPayPalCheckout();
+            });
+
             // Initialize PayPal checkout button
             initPayPalCheckout();
         });
@@ -283,12 +344,18 @@
         function updateCartDisplay() {
             const cartItems = document.getElementById('cart-items');
             const cartCount = document.getElementById('cart-count');
+            const checkoutBtn = document.getElementById('checkout-btn');
+            const customerForm = document.getElementById('customer-form');
+            const paypalContainer = document.getElementById('paypal-checkout-container');
             
             const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
             cartCount.textContent = totalItems;
 
             if (cart.length === 0) {
                 cartItems.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
+                checkoutBtn.style.display = 'none';
+                customerForm.style.display = 'none';
+                paypalContainer.innerHTML = '';
             } else {
                 cartItems.innerHTML = cart.map((item, index) => `
                     <div class="cart-item">
@@ -304,10 +371,9 @@
                         </div>
                     </div>
                 `).join('');
+                
+                checkoutBtn.style.display = 'block';
             }
-
-            // Re-initialize PayPal button when cart changes
-            initPayPalCheckout();
         }
 
         async function initPayPalCheckout() {
@@ -322,9 +388,9 @@
 
             paypal.Buttons({
                 createOrder: async function(data, actions) {
-                    // First create order on our backend
-                    const customerName = prompt('Please enter your full name:');
-                    const customerEmail = prompt('Please enter your email address:');
+                    // Get customer info from form
+                    const customerName = document.getElementById('customer-name').value;
+                    const customerEmail = document.getElementById('customer-email').value;
                     
                     if (!customerName || !customerEmail) {
                         throw new Error('Customer information is required');
