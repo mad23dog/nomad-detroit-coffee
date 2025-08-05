@@ -156,7 +156,7 @@
                     <div class="hero-text">
                         <h1>Nomad Detroit Coffee</h1>
                         <p>Wander the World Through Coffee</p>
-                        <button class="cta-button" onclick="document.getElementById('coffee').scrollIntoView({behavior: 'smooth'})">Explore Our Coffees</button>
+                        <button class="cta-button" onclick="smoothScrollTo('coffee')">Explore Our Coffees</button>
                     </div>
                     <div class="hero-image">
                         <img src="Images/Logos/coffee farm with N logo.png" alt="Nomad Detroit Coffee Logo - Coffee Farm with N" class="hero-logo">
@@ -279,9 +279,18 @@
         let cartTotal = 0;
 
         function smoothScrollTo(elementId) {
-            document.getElementById(elementId).scrollIntoView({
-                behavior: 'smooth'
-            });
+            const element = document.getElementById(elementId);
+            if (element) {
+                // Calculate navbar height dynamically
+                const navbar = document.querySelector('.navbar');
+                const navbarHeight = navbar ? navbar.offsetHeight + 20 : 80; // Add 20px buffer
+                const elementPosition = element.offsetTop - navbarHeight;
+                
+                window.scrollTo({
+                    top: Math.max(0, elementPosition), // Ensure we don't scroll to negative position
+                    behavior: 'smooth'
+                });
+            }
         }
 
         function toggleMenu() {
