@@ -784,12 +784,16 @@ section {
     
     .hero {
         padding: 0;
-        min-height: calc(100vh - 70px);
-        height: calc(100vh - 70px);
-        margin-top: 70px;
+        min-height: 100vh;
+        height: 100vh;
+        margin-top: 0;
         display: flex;
         align-items: center;
         justify-content: center;
+        position: relative;
+        top: 0;
+        padding-top: 70px;
+        box-sizing: border-box;
     }
     
     .hero-card {
@@ -941,6 +945,16 @@ section {
 
 /* Additional mobile improvements */
 @media (max-width: 480px) {
+    .hero {
+        min-height: 100vh;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 70px;
+        box-sizing: border-box;
+    }
+    
     .hero h1 {
         font-size: 1.8rem;
     }
@@ -951,6 +965,11 @@ section {
     
     .hero-card {
         padding: 1.5rem 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        max-height: calc(100vh - 140px);
     }
     
     .coffee-card {
@@ -978,21 +997,59 @@ section {
     }
 }
 
-/* Landscape mobile */
-@media (max-width: 768px) and (orientation: landscape) {
+/* Ultra small devices */
+@media (max-width: 360px) {
     .hero {
-        padding: 0;
-        min-height: calc(100vh - 70px);
-        height: calc(100vh - 70px);
-        margin-top: 70px;
+        min-height: 100vh;
+        height: 100vh;
+        padding-top: 70px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .hero-card {
+        padding: 1rem 0.5rem;
+        max-height: calc(100vh - 140px);
+        display: flex;
         flex-direction: column;
-        gap: 2rem;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .hero h1 {
+        font-size: 1.6rem;
+        line-height: 1.1;
     }
     
     .hero-logo {
         max-height: 250px;
+    }
+}
+
+/* Landscape mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    .hero {
+        padding: 0;
+        min-height: 100vh;
+        height: 100vh;
+        margin-top: 0;
+        padding-top: 70px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .hero-card {
+        flex-direction: column;
+        gap: 1.5rem;
+        max-height: calc(100vh - 140px);
+        overflow-y: auto;
+    }
+    
+    .hero-logo {
+        max-height: 200px;
     }
 }
