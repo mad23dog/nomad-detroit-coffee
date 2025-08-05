@@ -560,9 +560,12 @@ section {
 
 #paypal-checkout-container {
     margin-top: 1rem;
+    border-radius: 10px;
+}
+
+#paypal-checkout-container:not(:empty) {
     min-height: 200px;
     background: #ffffff;
-    border-radius: 10px;
     padding: 1rem;
 }
 
