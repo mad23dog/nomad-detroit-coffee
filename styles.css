@@ -225,7 +225,7 @@ body {
 .hero-logo {
     max-width: 100%;
     height: auto;
-    max-height: 400px;
+    max-height: 600px;
     border-radius: 20px;
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
@@ -921,7 +921,7 @@ section {
     }
     
     .hero-logo {
-        max-height: 200px;
+        max-height: 300px;
     }
     
     .floating-element {
@@ -988,6 +988,6 @@ section {
     }
     
     .hero-logo {
-        max-height: 200px;
+        max-height: 250px;
     }
 }
