@@ -143,8 +143,8 @@
             <div class="cart-footer">
                 <div class="cart-total">
                     <div class="cart-subtotal">Subtotal: $<span id="cart-subtotal">0.00</span></div>
-                    <div class="cart-shipping">Shipping: $<span id="cart-shipping">5.00</span></div>
-                    <div class="cart-final-total"><strong>Total: $<span id="cart-total">5.00</span></strong></div>
+                    <div class="cart-shipping" style="display: none;">Shipping: $<span id="cart-shipping">0.00</span></div>
+                    <div class="cart-final-total"><strong>Total: $<span id="cart-total">0.00</span></strong></div>
                 </div>
                 <div id="paypal-checkout-container"></div>
             </div>
@@ -400,6 +400,14 @@
             document.getElementById('cart-subtotal').textContent = subtotal.toFixed(2);
             document.getElementById('cart-shipping').textContent = cart.length > 0 ? shippingCost.toFixed(2) : '0.00';
             document.getElementById('cart-total').textContent = cartTotal.toFixed(2);
+            
+            // Show/hide shipping line based on cart contents
+            const shippingElement = document.querySelector('.cart-shipping');
+            if (cart.length > 0) {
+                shippingElement.style.display = 'block';
+            } else {
+                shippingElement.style.display = 'none';
+            }
         }
 
         function updateCartDisplay() {
