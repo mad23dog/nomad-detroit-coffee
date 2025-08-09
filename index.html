@@ -780,7 +780,7 @@
 
                         const result = await response.json();
 
-                        alert(`Thank you for your purchase, ${details.payer.name.given_name}! You'll receive an email confirmation shortly.`);
+                        showSuccessNotification(details.payer.name.given_name);
                         cart = [];
                         updateCartDisplay();
                         updateCartTotal();
@@ -933,6 +933,57 @@
                 banner.classList.remove('show');
                 // Disable non-essential cookies here if needed
             });
+        }
+        
+        // Success notification functions
+        function showSuccessNotification(customerName) {
+            // Create overlay
+            const overlay = document.createElement('div');
+            overlay.className = 'success-notification-overlay';
+            overlay.id = 'success-overlay';
+            
+            // Create notification
+            const notification = document.createElement('div');
+            notification.className = 'success-notification';
+            notification.id = 'success-notification';
+            
+            notification.innerHTML = `
+                <div class="success-icon"></div>
+                <h2>Payment Successful!</h2>
+                <p>Thank you for your purchase, <span class="customer-name">${customerName}</span>!<br>
+                You'll receive an email confirmation shortly.</p>
+                <button class="success-close-btn" onclick="closeSuccessNotification()">Continue Shopping</button>
+            `;
+            
+            // Add to page
+            document.body.appendChild(overlay);
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                overlay.classList.add('show');
+                notification.classList.add('show');
+            }, 50);
+            
+            // Auto-close after 8 seconds
+            setTimeout(() => {
+                closeSuccessNotification();
+            }, 8000);
+        }
+        
+        function closeSuccessNotification() {
+            const overlay = document.getElementById('success-overlay');
+            const notification = document.getElementById('success-notification');
+            
+            if (overlay && notification) {
+                overlay.classList.remove('show');
+                notification.classList.remove('show');
+                
+                setTimeout(() => {
+                    if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+                    if (notification.parentNode) notification.parentNode.removeChild(notification);
+                }, 400);
+            }
         }
         
     </script>
