@@ -159,6 +159,7 @@ module.exports = async function handler(req, res) {
                         }
                     });
 
+                    // Send customer confirmation email
                     await transporter.sendMail({
                         from: process.env.EMAIL_USER,
                         to: customerEmail,
@@ -172,6 +173,32 @@ module.exports = async function handler(req, res) {
                             <p><strong>Total: $${total.toFixed(2)}</strong></p>
                             <p>You can find us at the Royal Oak Farmers Market every Saturday from 7AM - 1PM.</p>
                             <p>Thank you for supporting Nomad Detroit Coffee!</p>
+                        `
+                    });
+
+                    // Send admin notification email
+                    const itemsList = orderItems.map(item => 
+                        `${item.quantity}x ${item.product_name} - $${(item.price * item.quantity).toFixed(2)}`
+                    ).join('<br>');
+
+                    await transporter.sendMail({
+                        from: process.env.EMAIL_USER,
+                        to: process.env.ADMIN_EMAIL || process.env.EMAIL_USER,
+                        subject: `🚨 New Order Alert - Nomad Detroit Coffee #${orderId}`,
+                        html: `
+                            <h2>🎉 New Order Received!</h2>
+                            <p><strong>Order ID:</strong> ${orderId}</p>
+                            <p><strong>Customer:</strong> ${sanitizedCustomerName} (${customerEmail})</p>
+                            <p><strong>PayPal Order ID:</strong> ${paypalOrderId}</p>
+                            
+                            <h3>Order Details:</h3>
+                            ${itemsList}
+                            <br><br>
+                            <p><strong>Items Subtotal:</strong> $${itemsTotal.toFixed(2)}</p>
+                            <p><strong>Shipping:</strong> $${shippingCost.toFixed(2)}</p>
+                            <p><strong>Total Paid:</strong> $${total.toFixed(2)}</p>
+                            
+                            <p><em>Order placed at: ${new Date().toLocaleString('en-US', { timeZone: 'America/Detroit' })}</em></p>
                         `
                     });
                 } catch (emailError) {

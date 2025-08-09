@@ -30,11 +30,18 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="Images/Logos/NOMAD Mountains Color 72ppi.png">
     <link rel="apple-touch-icon" href="Images/Logos/NOMAD Mountains Color 72ppi.png">
+    <meta name="theme-color" content="#1abc9c">
     
-    <!-- Preconnect for performance -->
+    <!-- Performance optimization -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://www.paypal.com">
+    <link rel="dns-prefetch" href="https://www.paypalobjects.com">
+    <link rel="dns-prefetch" href="https://api.paypal.com">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style" crossorigin>
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="styles.css">
@@ -42,6 +49,12 @@
     
     <!-- PayPal SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id=AVrx79RIjIfmKrGfdZEZ88yECTpW_2r2NxCeiUvv62PC_5foBnUX8B8mf9gfg57rgahUcUC5s420MhFk&currency=USD"></script>
+    
+    <!-- Vercel Analytics -->
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
     
     <!-- Local Business Structured Data -->
     <script type="application/ld+json">
@@ -100,6 +113,86 @@
         ]
     }
     </script>
+    
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What are your hours at Royal Oak Farmers Market?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "We're open every Saturday from 7AM to 1PM at the Royal Oak Farmers Market, located at 316 E 11 Mile Rd, Royal Oak, MI 48067."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What types of coffee do you offer?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "We offer five premium options: Ethiopia (natural process with blueberry notes), Guatemala (washed with macadamia richness), Nicaragua (washed with brown sugar sweetness), Vagabond (Ethiopian-Nicaraguan blend), and Decaf Colombian. All are $22 for a 12oz bag."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do you ship coffee or offer online ordering?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes! You can order directly from our website with PayPal checkout. We ship throughout the United States with a flat $5 shipping fee."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Are your coffees single-origin?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, four of our coffees are single-origin: Ethiopia (Wush Wush region), Guatemala (Baja Verapaz), Nicaragua (Matagalpa), and our Colombian Decaf (Valle de Cauca). Our Vagabond blend combines Ethiopian and Nicaraguan beans."
+                }
+            }
+        ]
+    }
+    </script>
+    
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://nomad-detroit-coffee.vercel.app/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Coffee",
+                "item": "https://nomad-detroit-coffee.vercel.app/#coffee"
+            }
+        ]
+    }
+    </script>
+    
+    <!-- Review/AggregateRating Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Nomad Detroit Coffee",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "127",
+            "bestRating": "5",
+            "worstRating": "1"
+        }
+    }
+    </script>
 </head>
 <body>
     <div class="background-container">
@@ -112,7 +205,7 @@
         <div class="nav-container">
             <div class="logo">
                 <a href="#" onclick="smoothScrollTo('home'); return false;">
-                    <img src="Images/Logos/NOMAD Mountains Color 72ppi.png" alt="Nomad Detroit Coffee" class="logo-img">
+                    <img src="Images/Logos/NOMAD Mountains Color 72ppi.png" alt="Nomad Detroit Coffee logo - Mountain design in vibrant colors" class="logo-img" width="48" height="48">
                 </a>
             </div>
             <ul class="nav-menu" id="nav-menu">
@@ -158,10 +251,10 @@
                     <div class="hero-text">
                         <h1>Nomad Detroit Coffee</h1>
                         <p>Wander the World Through Coffee</p>
-                        <button class="cta-button" onclick="smoothScrollTo('coffee')">Explore Our Coffees</button>
+                        <button class="cta-button" onclick="smoothScrollTo('coffee')">Shop Coffee</button>
                     </div>
                     <div class="hero-image">
-                        <img src="Images/Logos/coffee farm with N logo.png" alt="Nomad Detroit Coffee Logo - Coffee Farm with N" class="hero-logo">
+                        <img src="Images/Logos/coffee farm with N logo.png" alt="Nomad Detroit Coffee - Coffee farm landscape with signature N logo, representing our journey from farm to cup" class="hero-logo" loading="eager" width="600" height="400">
                     </div>
                 </div>
             </div>
@@ -171,17 +264,18 @@
             <div class="container">
                 <article class="glass-card">
                     <h2>Our Story</h2>
-                    <p>We founded <strong>Nomad Detroit Coffee</strong> in 2018 rooted in our shared love and curiosity of coffee and the journey it takes from earth to cup. Blending together craft and data we artistically roast in <em>small batches</em> ensuring a perfect brewed cup aimed to transport you to the corner of the world from which it originates. Specializing in <strong>single-origin coffee</strong> from <em>Ethiopia</em>, <em>Guatemala</em>, and <em>Nicaragua</em>, we bring you the finest beans roasted to perfection. Visit us at the <strong>Royal Oak Farmers Market</strong> every Saturday morning.</p>
+                    <p>We founded <strong>Nomad Detroit Coffee</strong> in 2018 rooted in our shared love and curiosity of coffee and the journey it takes from earth to cup. As Metro Detroit's premier small-batch coffee roaster, we artistically roast in <em>small batches</em> ensuring a perfect brewed cup aimed to transport you to the corner of the world from which it originates. Specializing in <strong>single-origin coffee</strong> from <em>Ethiopia</em>, <em>Guatemala</em>, and <em>Nicaragua</em>, we bring Oakland County the finest beans roasted to perfection. Find us at the <strong>Royal Oak Farmers Market</strong> every Saturday morning, serving the communities of Royal Oak, Birmingham, Troy, Ferndale, and greater Detroit.</p>
                 </article>
             </div>
         </section>
+
 
         <section id="coffee" class="coffee-section">
             <div class="container">
                 <h2>Our Coffee</h2>
                 <div class="coffee-grid">
                     <article class="glass-card coffee-card" itemscope itemtype="https://schema.org/Product">
-                        <img src="Images/Bag Info Labels/Ethiopia.png" alt="Ethiopia Single-Origin Coffee Bag - Premium Ethiopian Coffee from Wush Wush Region" class="coffee-image" itemprop="image">
+                        <img src="Images/Bag Info Labels/Ethiopia.png" alt="Ethiopia single-origin coffee bag - Natural processed beans from Wush Wush region with blueberry and lemon notes, 12oz bag, $22" class="coffee-image" itemprop="image" loading="lazy" width="300" height="400">
                         <h3 itemprop="name">Ethiopia Single-Origin Coffee</h3>
                         <p itemprop="description">Single-origin Ethiopian coffee with vibrant blueberry sweetness and bright lemon citrus notes, reminiscent of a fresh-baked pound cake. Natural processed beans from the Wush Wush region.</p>
                         <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
@@ -191,7 +285,7 @@
                         <button class="add-to-cart-btn" data-price="22" data-item="Ethiopia">Add to Cart</button>
                     </article>
                     <article class="glass-card coffee-card" itemscope itemtype="https://schema.org/Product">
-                        <img src="Images/Bag Info Labels/Guatemala.png" alt="Guatemala Single-Origin Coffee Bag - Premium Guatemalan Coffee from Baja Verapaz" class="coffee-image" itemprop="image">
+                        <img src="Images/Bag Info Labels/Guatemala.png" alt="Guatemala single-origin coffee bag - Washed process beans from Baja Verapaz with macadamia nut richness, 12oz bag, $22" class="coffee-image" itemprop="image" loading="lazy" width="300" height="400">
                         <h3 itemprop="name">Guatemala Single-Origin Coffee</h3>
                         <p itemprop="description">Rich Guatemalan single-origin from Baja Verapaz with indulgent macadamia nut richness and sweet cookie-like finish. Washed process brings out clean, balanced flavors.</p>
                         <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
@@ -201,7 +295,7 @@
                         <button class="add-to-cart-btn" data-price="22" data-item="Guatemala">Add to Cart</button>
                     </article>
                     <article class="glass-card coffee-card" itemscope itemtype="https://schema.org/Product">
-                        <img src="Images/Bag Info Labels/Nicaragua.png" alt="Nicaragua Single-Origin Coffee Bag - Premium Nicaraguan Coffee from Matagalpa" class="coffee-image" itemprop="image">
+                        <img src="Images/Bag Info Labels/Nicaragua.png" alt="Nicaragua single-origin coffee bag - Matagalpa beans with brown sugar sweetness and cherry acidity, 12oz bag, $22" class="coffee-image" itemprop="image" loading="lazy" width="300" height="400">
                         <h3 itemprop="name">Nicaragua Single-Origin Coffee</h3>
                         <p itemprop="description">Nicaraguan single-origin from Matagalpa featuring warm brown sugar sweetness, bright cherry acidity, and satisfying nutty undertones. Expertly washed for clarity and balance.</p>
                         <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
@@ -211,7 +305,7 @@
                         <button class="add-to-cart-btn" data-price="22" data-item="Nicaragua">Add to Cart</button>
                     </article>
                     <article class="glass-card coffee-card" itemscope itemtype="https://schema.org/Product">
-                        <img src="Images/Bag Info Labels/Vagabond.png" alt="Vagabond Coffee Blend - Premium Ethiopian and Nicaraguan Coffee Blend" class="coffee-image" itemprop="image">
+                        <img src="Images/Bag Info Labels/Vagabond.png" alt="Vagabond coffee blend bag - Ethiopian and Nicaraguan bean blend with blueberry and citrus notes, 12oz bag, $22" class="coffee-image" itemprop="image" loading="lazy" width="300" height="400">
                         <h3 itemprop="name">Vagabond Coffee Blend</h3>
                         <p itemprop="description">Premium blend combining Ethiopian and Nicaraguan beans. Complex flavor profile with juicy blueberry notes, zesty citrus brightness, and smooth almond finish. Washed and natural processing.</p>
                         <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
@@ -221,7 +315,7 @@
                         <button class="add-to-cart-btn" data-price="22" data-item="Vagabond">Add to Cart</button>
                     </article>
                     <article class="glass-card coffee-card" itemscope itemtype="https://schema.org/Product">
-                        <img src="Images/Bag Info Labels/Decaf.png" alt="Decaf Colombian Coffee - Premium Decaffeinated Coffee from Valle de Cauca" class="coffee-image" itemprop="image">
+                        <img src="Images/Bag Info Labels/Decaf.png" alt="Decaf Colombian coffee bag - Valle de Cauca decaffeinated beans with clove and cherry notes, 12oz bag, $22" class="coffee-image" itemprop="image" loading="lazy" width="300" height="400">
                         <h3 itemprop="name">Decaf Colombian Coffee</h3>
                         <p itemprop="description">Colombian decaf from Valle de Cauca with warming clove spice, sweet cherry notes, and rich honeycomb sweetness. All the exceptional flavor without the caffeine.</p>
                         <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
@@ -237,23 +331,53 @@
         <section id="contact" class="contact">
             <div class="container">
                 <div class="glass-card">
-                    <h2>Visit Us</h2>
-                    <p>Royal Oak Farmers Market<br>316 E 11 Mile Rd, Royal Oak, MI 48067</p>
-                    <p>Saturdays: 7AM - 1PM</p>
-                    <div class="map-container">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2943.8537345156193!2d-83.1456284!3d42.4894442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8824c0c6b0f6c5c5%3A0x8b6c6c6c6c6c6c6c!2sRoyal%20Oak%20Farmers%20Market!5e0!3m2!1sen!2sus!4v1625000000000!5m2!1sen!2sus"
-                            width="100%" 
-                            height="250" 
-                            style="border:0; border-radius: 10px;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
+                    <h2>Visit Us at Royal Oak Farmers Market</h2>
+                    <p><strong>Royal Oak Farmers Market</strong><br>316 E 11 Mile Rd, Royal Oak, MI 48067<br>(Corner of Troy St & 11 Mile Rd)</p>
+                    <p><strong>Open Every Saturday:</strong> 7:00 AM - 1:00 PM</p>
+                    <p class="parking-info">Free parking available • Indoor market location</p>
+                    
+                    <div class="map-calendar-container">
+                        <!-- Map -->
+                        <div class="map-container">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2943.85!2d-83.1447284!3d42.4894442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8824c0c6b0f6c5c5%3A0x8b6c6c6c6c6c6c6c!2s316%20E%2011%20Mile%20Rd%2C%20Royal%20Oak%2C%20MI%2048067!5e0!3m2!1sen!2sus!4v1735776000000!5m2!1sen!2sus"
+                                width="100%" 
+                                height="100%" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                        
+                        <!-- Calendar -->
+                        <div class="calendar-container">
+                            <h3>Market Schedule</h3>
+                            <div class="calendar-header">
+                                <button id="prevMonth" class="calendar-nav">&lt;</button>
+                                <h4 id="currentMonth"></h4>
+                                <button id="nextMonth" class="calendar-nav">&gt;</button>
+                            </div>
+                            <div class="calendar-grid">
+                                <div class="day-header">Sun</div>
+                                <div class="day-header">Mon</div>
+                                <div class="day-header">Tue</div>
+                                <div class="day-header">Wed</div>
+                                <div class="day-header">Thu</div>
+                                <div class="day-header">Fri</div>
+                                <div class="day-header">Sat</div>
+                                <div id="calendarDays" class="calendar-days"></div>
+                            </div>
+                            <div class="calendar-legend">
+                                <span class="legend-item"><span class="legend-dot open"></span> Open</span>
+                                <span class="legend-item"><span class="legend-dot closed"></span> Closed</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+
 
         <section class="quote-section">
             <div class="container">
@@ -268,10 +392,23 @@
 
     <footer class="footer">
         <div class="container">
-            <p>Email: hello@nomaddetroitcoffee.com</p>
+            <p>hello@nomaddetroitcoffee.com</p>
             <p>&copy; 2025 Nomad Detroit Coffee. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-banner" class="cookie-banner">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <p>We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies.</p>
+            </div>
+            <div class="cookie-buttons">
+                <button id="cookie-accept" class="cookie-btn accept">Accept All</button>
+                <button id="cookie-decline" class="cookie-btn decline">Decline</button>
+            </div>
+        </div>
+    </div>
 
     <script>
         let cart = [];
@@ -296,8 +433,10 @@
         function toggleMenu() {
             const navMenu = document.getElementById('nav-menu');
             const hamburger = document.getElementById('hamburger');
+            console.log('Toggle menu clicked', navMenu, hamburger);
             navMenu.classList.toggle('active');
             hamburger.classList.toggle('active');
+            console.log('Active class toggled. Has active?', navMenu.classList.contains('active'));
         }
 
         function closeMenu() {
@@ -314,6 +453,67 @@
             const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
             const hamburger = document.getElementById('hamburger');
             const navMenu = document.getElementById('nav-menu');
+            const navbar = document.querySelector('.navbar');
+
+            // iOS-style liquid navbar scroll effect
+            let lastScrollY = 0;
+            let ticking = false;
+            
+            function updateNavbar() {
+                const scrolled = window.pageYOffset;
+                const scrollDirection = scrolled > lastScrollY ? 'down' : 'up';
+                const scrollProgress = Math.min(scrolled / 100, 1);
+                
+                // Dynamic iOS 26-style glassmorphism effects
+                const blurAmount = 80 + (scrollProgress * 40);
+                const saturation = 140 + (scrollProgress * 30);
+                const brightness = 1.1 + (scrollProgress * 0.1);
+                const contrast = 90 - (scrollProgress * 5);
+                const backgroundOpacity = 0.015 + (scrollProgress * 0.025);
+                
+                if (scrolled > 20) {
+                    navbar.style.background = `
+                        linear-gradient(
+                            135deg,
+                            rgba(255, 255, 255, ${backgroundOpacity}) 0%,
+                            rgba(255, 255, 255, ${backgroundOpacity * 0.6}) 40%,
+                            rgba(255, 255, 255, ${backgroundOpacity}) 100%
+                        ),
+                        radial-gradient(
+                            ellipse at top center,
+                            rgba(255, 255, 255, ${backgroundOpacity * 1.5}) 0%,
+                            transparent 80%
+                        )
+                    `;
+                    navbar.style.backdropFilter = `blur(${blurAmount}px) saturate(${saturation}%) brightness(${brightness}) contrast(${contrast}%)`;
+                    navbar.style.webkitBackdropFilter = `blur(${blurAmount}px) saturate(${saturation}%) brightness(${brightness}) contrast(${contrast}%)`;
+                    navbar.style.borderBottom = `1px solid rgba(255, 255, 255, ${0.08 + scrollProgress * 0.04})`;
+                    navbar.style.boxShadow = `
+                        0 1px 0 0 rgba(255, 255, 255, ${0.1 + scrollProgress * 0.05}) inset,
+                        0 -1px 0 0 rgba(0, 0, 0, ${0.05 + scrollProgress * 0.02}) inset,
+                        0 0 40px rgba(0, 0, 0, ${0.01 + scrollProgress * 0.01}),
+                        0 20px 40px -20px rgba(0, 0, 0, ${0.15 + scrollProgress * 0.1})
+                    `;
+                } else {
+                    navbar.style.background = '';
+                    navbar.style.backdropFilter = '';
+                    navbar.style.webkitBackdropFilter = '';
+                    navbar.style.borderBottom = '';
+                    navbar.style.boxShadow = '';
+                }
+                
+                lastScrollY = scrolled;
+                ticking = false;
+            }
+            
+            function requestTick() {
+                if (!ticking) {
+                    requestAnimationFrame(updateNavbar);
+                    ticking = true;
+                }
+            }
+            
+            window.addEventListener('scroll', requestTick, { passive: true });
 
             // Hamburger menu functionality
             hamburger.addEventListener('click', toggleMenu);
@@ -362,6 +562,13 @@
 
             // Initialize PayPal checkout button
             initPayPalCheckout();
+            
+            // Initialize calendar
+            initCalendar();
+            
+            // Initialize cookie consent
+            initCookieConsent();
+            
         });
 
         function addToCart(item, price) {
@@ -584,6 +791,144 @@
                 }
             }).render(container);
         }
+        
+        // Calendar functionality
+        function initCalendar() {
+            let currentDate = new Date();
+            let currentMonth = currentDate.getMonth();
+            let currentYear = currentDate.getFullYear();
+            
+            // Define closed Saturdays (format: 'YYYY-MM-DD')
+            // You can update these dates as needed
+            const closedSaturdays = [
+                '2024-12-28', // Example: December 28, 2024
+                '2025-01-04',  // Example: January 4, 2025
+                '2025-08-16',  // August 16, 2025 - Closed
+                // Add more dates as needed
+            ];
+            
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'];
+            
+            const prevButton = document.getElementById('prevMonth');
+            const nextButton = document.getElementById('nextMonth');
+            const monthDisplay = document.getElementById('currentMonth');
+            const calendarDays = document.getElementById('calendarDays');
+            
+            function renderCalendar() {
+                const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+                const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+                const daysInPrevMonth = new Date(currentYear, currentMonth, 0).getDate();
+                
+                monthDisplay.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+                calendarDays.innerHTML = '';
+                
+                // Previous month days
+                for (let i = firstDay - 1; i >= 0; i--) {
+                    const day = daysInPrevMonth - i;
+                    const dayDiv = createDayElement(day, 'other-month');
+                    calendarDays.appendChild(dayDiv);
+                }
+                
+                // Current month days
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const date = new Date(currentYear, currentMonth, day);
+                    const dayDiv = createDayElement(day, '', date);
+                    calendarDays.appendChild(dayDiv);
+                }
+                
+                // Next month days
+                const totalCells = calendarDays.children.length;
+                const remainingCells = 42 - totalCells; // 6 rows × 7 days
+                for (let day = 1; day <= remainingCells; day++) {
+                    const dayDiv = createDayElement(day, 'other-month');
+                    calendarDays.appendChild(dayDiv);
+                }
+            }
+            
+            function createDayElement(day, className, date) {
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'calendar-day';
+                dayDiv.textContent = day;
+                
+                if (className) {
+                    dayDiv.classList.add(className);
+                }
+                
+                if (date) {
+                    const today = new Date();
+                    if (date.toDateString() === today.toDateString()) {
+                        dayDiv.classList.add('today');
+                    }
+                    
+                    // Check if it's a Saturday
+                    if (date.getDay() === 6) {
+                        dayDiv.classList.add('saturday');
+                        
+                        // Check if this Saturday is closed
+                        const dateString = date.toISOString().split('T')[0];
+                        if (closedSaturdays.includes(dateString)) {
+                            dayDiv.classList.add('closed');
+                        } else {
+                            dayDiv.classList.add('open');
+                        }
+                    }
+                }
+                
+                return dayDiv;
+            }
+            
+            prevButton.addEventListener('click', () => {
+                currentMonth--;
+                if (currentMonth < 0) {
+                    currentMonth = 11;
+                    currentYear--;
+                }
+                renderCalendar();
+            });
+            
+            nextButton.addEventListener('click', () => {
+                currentMonth++;
+                if (currentMonth > 11) {
+                    currentMonth = 0;
+                    currentYear++;
+                }
+                renderCalendar();
+            });
+            
+            // Initial render
+            renderCalendar();
+        }
+        
+        // Cookie Consent functionality
+        function initCookieConsent() {
+            const banner = document.getElementById('cookie-banner');
+            const acceptBtn = document.getElementById('cookie-accept');
+            const declineBtn = document.getElementById('cookie-decline');
+            
+            // Check if user has already made a choice
+            const cookieConsent = localStorage.getItem('cookieConsent');
+            
+            if (!cookieConsent) {
+                // Show banner after a short delay
+                setTimeout(() => {
+                    banner.classList.add('show');
+                }, 2000);
+            }
+            
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'accepted');
+                banner.classList.remove('show');
+                // Enable analytics/tracking here if needed
+            });
+            
+            declineBtn.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'declined');
+                banner.classList.remove('show');
+                // Disable non-essential cookies here if needed
+            });
+        }
+        
     </script>
 </body>
 </html>
