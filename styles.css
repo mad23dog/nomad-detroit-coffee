@@ -754,7 +754,7 @@ section {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 2rem 0 0 0;
+        padding: 4rem 0 0 0;
         margin-top: 80px;
         box-sizing: border-box;
     }
@@ -802,11 +802,11 @@ section {
     }
     
     .nav-menu {
-        position: fixed;
-        top: 76px;
+        position: absolute;
+        top: 100%;
         left: -100%;
         width: 100%;
-        height: calc(100vh - 76px);
+        height: calc(100vh - 80px);
         background: rgba(0, 0, 0, 0.95);
         backdrop-filter: blur(20px);
         display: flex;

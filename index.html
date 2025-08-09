@@ -141,7 +141,7 @@
                 <p class="empty-cart">Your cart is empty</p>
             </div>
             <div class="cart-footer">
-                <div class="cart-total">
+                <div class="cart-total" style="display: none;">
                     <div class="cart-subtotal">Subtotal: $<span id="cart-subtotal">0.00</span></div>
                     <div class="cart-shipping" style="display: none;">Shipping: $<span id="cart-shipping">0.00</span></div>
                     <div class="cart-final-total"><strong>Total: $<span id="cart-total">0.00</span></strong></div>
@@ -400,11 +400,15 @@
             document.getElementById('cart-shipping').textContent = cart.length > 0 ? shippingCost.toFixed(2) : '0.00';
             document.getElementById('cart-total').textContent = cartTotal.toFixed(2);
             
-            // Show/hide shipping line based on cart contents
+            // Show/hide entire cart total section based on cart contents
+            const cartTotalElement = document.querySelector('.cart-total');
             const shippingElement = document.querySelector('.cart-shipping');
+            
             if (cart.length > 0) {
+                cartTotalElement.style.display = 'block';
                 shippingElement.style.display = 'block';
             } else {
+                cartTotalElement.style.display = 'none';
                 shippingElement.style.display = 'none';
             }
         }
