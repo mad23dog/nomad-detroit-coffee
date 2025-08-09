@@ -1,3 +1,16 @@
+const { body, validationResult } = require('express-validator');
+const createDOMPurify = require('dompurify');
+const { JSDOM } = require('jsdom');
+
+const window = new JSDOM('').window;
+const DOMPurify = createDOMPurify(window);
+
+// Sanitize string input
+const sanitizeInput = (value) => {
+    if (typeof value !== 'string') return value;
+    return DOMPurify.sanitize(value, { ALLOWED_TAGS: [] }).trim();
+};
+
 module.exports = async function handler(req, res) {
     try {
         // Set CORS headers
@@ -34,12 +47,41 @@ module.exports = async function handler(req, res) {
         try {
             const { items, customerEmail, customerName, paypalOrderId, shippingCost = 5.00 } = req.body;
             
-            if (!items || items.length === 0) {
+            // Validate inputs
+            if (!items || !Array.isArray(items) || items.length === 0) {
                 return res.status(400).json({ error: 'No items in order' });
             }
 
             if (!customerName || !customerEmail) {
                 return res.status(400).json({ error: 'Customer information missing' });
+            }
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(customerEmail)) {
+                return res.status(400).json({ error: 'Invalid email format' });
+            }
+
+            // Sanitize customer name
+            const sanitizedCustomerName = sanitizeInput(customerName);
+            if (sanitizedCustomerName.length < 2 || sanitizedCustomerName.length > 100) {
+                return res.status(400).json({ error: 'Customer name must be between 2 and 100 characters' });
+            }
+
+            // Validate PayPal order ID format
+            if (!paypalOrderId || !/^[A-Z0-9]{17}$/.test(paypalOrderId)) {
+                return res.status(400).json({ error: 'Invalid PayPal order ID' });
+            }
+
+            // Validate allowed product names
+            const allowedProducts = ['Ethiopia', 'Guatemala', 'Nicaragua', 'Vagabond', 'Decaf'];
+            for (const item of items) {
+                if (!allowedProducts.includes(item.name)) {
+                    return res.status(400).json({ error: `Invalid product: ${item.name}` });
+                }
+                if (!Number.isInteger(item.quantity) || item.quantity < 1 || item.quantity > 100) {
+                    return res.status(400).json({ error: 'Invalid quantity' });
+                }
             }
 
             // Generate unique order ID
@@ -82,7 +124,7 @@ module.exports = async function handler(req, res) {
             // Create completed order in database
             await client.query(
                 'INSERT INTO orders (order_id, customer_email, customer_name, total_amount, shipping_amount, status, paypal_order_id, completed_at) VALUES ($1, $2, $3, $4, $5, $6, $7, CURRENT_TIMESTAMP)',
-                [orderId, customerEmail, customerName, total, shippingCost, 'completed', paypalOrderId]
+                [orderId, customerEmail, sanitizedCustomerName, total, shippingCost, 'completed', paypalOrderId]
             );
             
             // Insert order items
@@ -123,7 +165,7 @@ module.exports = async function handler(req, res) {
                         subject: `Order Confirmation - Nomad Detroit Coffee #${orderId}`,
                         html: `
                             <h2>Order Confirmation</h2>
-                            <p>Hi ${customerName},</p>
+                            <p>Hi ${sanitizedCustomerName},</p>
                             <p>Thank you for your order! Your order ID is: ${orderId}</p>
                             <p>Items Total: $${itemsTotal.toFixed(2)}</p>
                             <p>Shipping: $${shippingCost.toFixed(2)}</p>

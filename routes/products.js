@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { db } = require('../database/init');
+const { requireAdmin } = require('../middleware/auth');
+const { validateStockUpdate } = require('../middleware/validation');
 
 // Get all products
 router.get('/', (req, res) => {
@@ -31,8 +33,8 @@ router.get('/:id', (req, res) => {
     });
 });
 
-// Update product stock (admin only - would need authentication in production)
-router.put('/:id/stock', (req, res) => {
+// Update product stock (admin only)
+router.put('/:id/stock', requireAdmin, validateStockUpdate, (req, res) => {
     const { id } = req.params;
     const { stock_quantity } = req.body;
     

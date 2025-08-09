@@ -417,23 +417,60 @@
             const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
             cartCount.textContent = totalItems;
 
+            // Clear existing content
+            cartItems.innerHTML = '';
+
             if (cart.length === 0) {
-                cartItems.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
+                const emptyMessage = document.createElement('p');
+                emptyMessage.className = 'empty-cart';
+                emptyMessage.textContent = 'Your cart is empty';
+                cartItems.appendChild(emptyMessage);
             } else {
-                cartItems.innerHTML = cart.map((item, index) => `
-                    <div class="cart-item">
-                        <div class="cart-item-info">
-                            <h4>${item.name}</h4>
-                            <p>$${item.price.toFixed(2)} each</p>
-                        </div>
-                        <div class="cart-item-controls">
-                            <button onclick="updateQuantity(${index}, ${item.quantity - 1})" class="qty-btn">-</button>
-                            <span class="quantity">${item.quantity}</span>
-                            <button onclick="updateQuantity(${index}, ${item.quantity + 1})" class="qty-btn">+</button>
-                            <button onclick="removeFromCart(${index})" class="remove-btn">×</button>
-                        </div>
-                    </div>
-                `).join('');
+                cart.forEach((item, index) => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    
+                    const itemInfo = document.createElement('div');
+                    itemInfo.className = 'cart-item-info';
+                    
+                    const itemName = document.createElement('h4');
+                    itemName.textContent = item.name;
+                    itemInfo.appendChild(itemName);
+                    
+                    const itemPrice = document.createElement('p');
+                    itemPrice.textContent = `$${item.price.toFixed(2)} each`;
+                    itemInfo.appendChild(itemPrice);
+                    
+                    const itemControls = document.createElement('div');
+                    itemControls.className = 'cart-item-controls';
+                    
+                    const decreaseBtn = document.createElement('button');
+                    decreaseBtn.className = 'qty-btn';
+                    decreaseBtn.textContent = '-';
+                    decreaseBtn.onclick = () => updateQuantity(index, item.quantity - 1);
+                    itemControls.appendChild(decreaseBtn);
+                    
+                    const quantity = document.createElement('span');
+                    quantity.className = 'quantity';
+                    quantity.textContent = item.quantity;
+                    itemControls.appendChild(quantity);
+                    
+                    const increaseBtn = document.createElement('button');
+                    increaseBtn.className = 'qty-btn';
+                    increaseBtn.textContent = '+';
+                    increaseBtn.onclick = () => updateQuantity(index, item.quantity + 1);
+                    itemControls.appendChild(increaseBtn);
+                    
+                    const removeBtn = document.createElement('button');
+                    removeBtn.className = 'remove-btn';
+                    removeBtn.textContent = '×';
+                    removeBtn.onclick = () => removeFromCart(index);
+                    itemControls.appendChild(removeBtn);
+                    
+                    cartItem.appendChild(itemInfo);
+                    cartItem.appendChild(itemControls);
+                    cartItems.appendChild(cartItem);
+                });
             }
 
             // Re-initialize PayPal button when cart changes
@@ -444,7 +481,9 @@
             const container = document.getElementById('paypal-checkout-container');
             
             if (cart.length === 0) {
-                container.innerHTML = '';
+                while (container.firstChild) {
+                    container.removeChild(container.firstChild);
+                }
                 return;
             }
 
@@ -458,7 +497,9 @@
                 quantity: 1
             };
 
-            container.innerHTML = '';
+            while (container.firstChild) {
+                container.removeChild(container.firstChild);
+            }
 
             paypal.Buttons({
                 createOrder: function(data, actions) {
