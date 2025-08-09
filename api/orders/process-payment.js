@@ -202,7 +202,18 @@ module.exports = async function handler(req, res) {
                         `
                     });
                 } catch (emailError) {
-                    console.log('Email sending failed:', emailError.message);
+                    console.error('Email sending failed:', emailError.message);
+                    console.error('Email error details:', emailError);
+                    
+                    // Log environment variables (without sensitive data)
+                    console.log('Email config check:', {
+                        hasEmailHost: !!process.env.EMAIL_HOST,
+                        hasEmailUser: !!process.env.EMAIL_USER,
+                        hasEmailPass: !!process.env.EMAIL_PASS,
+                        hasAdminEmail: !!process.env.ADMIN_EMAIL,
+                        adminEmailValue: process.env.ADMIN_EMAIL || 'using EMAIL_USER as fallback'
+                    });
+                    
                     // Don't fail the order if email fails
                 }
             }
